@@ -1,0 +1,128 @@
+.mainScreen {
+  width: 100%;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  overflow: hidden; 
+  background-color: #1c1940; 
+}
+
+/* САЙДБАР */
+.sidebar {
+  width: 96px;
+  height: 100%;
+  background-color: rgba(11, 7, 17, 0.6);
+  backdrop-filter: blur(10px);
+  border-right: 1px solid rgba(168, 85, 247, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px 0;
+  box-sizing: border-box;
+  z-index: 20;
+  flex-shrink: 0;
+}
+.logoContainer { width: 48px; height: 48px; margin-bottom: 48px; }
+.logoImg { width: 100%; height: 100%; object-fit: contain; }
+.navMenu { display: flex; flex-direction: column; gap: 16px; width: 100%; align-items: center; }
+.navButton {
+  background: transparent; border: none; color: #64748b;
+  width: 56px; height: 56px; border-radius: 16px;
+  cursor: pointer; transition: all 0.2s ease;
+  display: flex; justify-content: center; align-items: center;
+}
+.navButton:hover { color: #fbbf24; background-color: rgba(251, 191, 36, 0.1); }
+.navButton.active { color: #fbbf24; background-color: rgba(251, 191, 36, 0.15); }
+.bottomMenu { margin-top: auto; }
+
+/* --- ЗОНА СКРОЛЛА --- */
+.scrollArea {
+  flex: 1;
+  height: 100%;
+  overflow: hidden; /* Прячем все скроллбары, управляем через JS */
+  position: relative;
+}
+
+.levelsTrack {
+  height: 100%;
+  position: relative;
+  width: 6000px;
+}
+
+/* --- КРАСИВЫЕ УРОВНИ --- */
+.levelWrapper {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.levelWrapper:hover {
+  transform: translate(-50%, -50%) scale(1.15) translateY(-5px); 
+  z-index: 10;
+}
+
+.levelCircle {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 3px solid;
+  background: #1a1025;
+  position: relative;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.6), 0 8px 20px rgba(0, 0, 0, 0.5);
+}
+
+.levelCircle::after {
+  content: '';
+  position: absolute;
+  top: 5px; left: 15px; right: 15px; height: 15px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  filter: blur(3px);
+}
+
+.levelNumber {
+  font-size: 26px;
+  font-weight: 900;
+  color: #fff;
+  z-index: 2;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+}
+
+/* --- СТАТУСЫ УРОВНЕЙ --- */
+
+.completed {
+  border-color: #2dd4bf;
+  background: radial-gradient(circle at 50% 50%, #173a3e 0%, #0f1c22 100%);
+  box-shadow: 0 0 20px rgba(45, 212, 191, 0.4), inset 0 0 20px rgba(45, 212, 191, 0.2);
+}
+.completed .levelNumber { color: #2dd4bf; }
+
+.active {
+  border-color: #fbbf24;
+  background: radial-gradient(circle at 50% 50%, #3a2413 0%, #1a1025 100%);
+  box-shadow: 0 0 30px rgba(251, 191, 36, 0.6), inset 0 0 20px rgba(251, 191, 36, 0.3);
+  animation: floatActive 3s ease-in-out infinite; 
+}
+.active .levelNumber { color: #fbbf24; }
+
+@keyframes floatActive {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.locked {
+  border-color: #3a3a4c;
+  background: #15151f;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8), 0 5px 15px rgba(0, 0, 0, 0.3);
+  opacity: 0.7;
+}
+.locked .levelNumber { color: #64748b; }
